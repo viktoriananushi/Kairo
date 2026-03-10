@@ -1,6 +1,6 @@
 package ui;
 
-import storage.StorageManager;
+import Storage.StorageManager;
 import model.Workspace;
 
 import javax.swing.*;
