@@ -12,13 +12,16 @@ import java.nio.file.Paths;
 
 /**
  * Kairo - A Smart Task and Scheduling System
- * Main application entry point with modern, Notion-inspired UI
+ * Main application entry point with modern, elegant UI
+ * 
+ * Features a sophisticated feminine neutral palette with
+ * blacks, warm greys, and refined tan accents
  */
 public class KairoApp {
 
     private static final String APP_NAME = "Kairo";
-    private static final int WINDOW_WIDTH = 1200;
-    private static final int WINDOW_HEIGHT = 800;
+    private static final int WINDOW_WIDTH = 1280;
+    private static final int WINDOW_HEIGHT = 850;
     private static final Path DATA_FILE = Paths.get(System.getProperty("user.home"), ".kairo", "workspace.json");
 
     public static void main(String[] args) {
@@ -26,11 +29,21 @@ public class KairoApp {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             
-            // Set custom UI defaults for a cleaner look
-            UIManager.put("Button.arc", 8);
-            UIManager.put("Component.arc", 8);
+            // Custom UI defaults for a refined, elegant look
+            UIManager.put("Button.arc", 10);
+            UIManager.put("Component.arc", 10);
             UIManager.put("TextComponent.arc", 8);
-            UIManager.put("Button.margin", new Insets(8, 16, 8, 16));
+            UIManager.put("Button.margin", new Insets(10, 20, 10, 20));
+            
+            // Refined tooltip styling
+            UIManager.put("ToolTip.background", new Color(45, 42, 38));
+            UIManager.put("ToolTip.foreground", new Color(250, 249, 247));
+            UIManager.put("ToolTip.border", BorderFactory.createEmptyBorder(8, 12, 8, 12));
+            
+            // Scrollbar styling
+            UIManager.put("ScrollBar.width", 10);
+            UIManager.put("ScrollBar.thumbArc", 999);
+            UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
             
         } catch (Exception e) {
             // Continue with default look and feel
@@ -47,9 +60,12 @@ public class KairoApp {
             // Create main window
             JFrame window = new JFrame(APP_NAME);
             window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-            window.setMinimumSize(new Dimension(900, 600));
+            window.setMinimumSize(new Dimension(1000, 700));
             window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             window.setLocationRelativeTo(null);
+            
+            // Set window background for seamless appearance
+            window.getContentPane().setBackground(new Color(250, 249, 247));
 
             // Add main UI panel
             MainPanel panel = new MainPanel(workspace);
