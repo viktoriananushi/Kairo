@@ -11,6 +11,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Comparator;
@@ -18,9 +19,9 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Main UI panel with sophisticated, elegant design
- * Features a refined feminine neutral palette with blacks, warm greys, and tans
- * Inspired by modern productivity apps with a timeless aesthetic
+ * Main UI panel with sophisticated, modern minimal design
+ * Features a refined neutral palette with blacks, cool greys, and soft tans
+ * Inspired by Notion and modern productivity apps with a timeless aesthetic
  */
 public class MainPanel extends JPanel {
 
@@ -39,47 +40,47 @@ public class MainPanel extends JPanel {
     private enum ViewMode { PAGE, UPCOMING, OVERDUE, PRIORITY }
     private ViewMode currentView = ViewMode.PAGE;
 
-    // ========== REFINED FEMININE NEUTRAL COLOR PALETTE ==========
-    // Warm off-whites and creams
-    private static final Color BACKGROUND = new Color(250, 249, 247);           // Warm cream white
-    private static final Color SIDEBAR_BG = new Color(245, 243, 240);           // Soft warm grey
-    private static final Color SIDEBAR_HOVER = new Color(237, 233, 227);        // Warm beige hover
-    private static final Color SIDEBAR_SELECTED = new Color(229, 224, 216);     // Selected beige
+    // ========== REFINED MODERN NEUTRAL COLOR PALETTE ==========
+    // Cool whites and soft neutrals
+    private static final Color BACKGROUND = new Color(252, 252, 251);           // Clean off-white
+    private static final Color SIDEBAR_BG = new Color(247, 247, 246);           // Light cool grey
+    private static final Color SIDEBAR_HOVER = new Color(240, 240, 238);        // Subtle hover
+    private static final Color SIDEBAR_SELECTED = new Color(232, 232, 230);     // Selected state
     
     // Borders and dividers
-    private static final Color BORDER_COLOR = new Color(230, 226, 220);         // Soft warm border
-    private static final Color BORDER_DARK = new Color(210, 204, 194);          // Stronger border
+    private static final Color BORDER_COLOR = new Color(234, 234, 232);         // Soft border
+    private static final Color BORDER_DARK = new Color(212, 212, 208);          // Stronger border
     
-    // Text colors
-    private static final Color TEXT_PRIMARY = new Color(45, 42, 38);            // Rich warm black
-    private static final Color TEXT_SECONDARY = new Color(107, 100, 90);        // Warm grey
-    private static final Color TEXT_TERTIARY = new Color(156, 148, 136);        // Light warm grey
-    private static final Color TEXT_MUTED = new Color(180, 173, 162);           // Very muted
+    // Text colors - rich blacks and greys
+    private static final Color TEXT_PRIMARY = new Color(32, 32, 32);            // Near black
+    private static final Color TEXT_SECONDARY = new Color(96, 96, 96);          // Dark grey
+    private static final Color TEXT_TERTIARY = new Color(140, 140, 140);        // Medium grey
+    private static final Color TEXT_MUTED = new Color(175, 175, 175);           // Light grey
     
-    // Accent colors - sophisticated earth tones
-    private static final Color ACCENT = new Color(167, 139, 111);               // Elegant tan/camel
-    private static final Color ACCENT_HOVER = new Color(147, 119, 91);          // Darker tan
-    private static final Color ACCENT_LIGHT = new Color(235, 226, 215);         // Light tan tint
+    // Accent colors - sophisticated muted taupe/tan
+    private static final Color ACCENT = new Color(130, 120, 105);               // Muted taupe
+    private static final Color ACCENT_HOVER = new Color(110, 100, 85);          // Darker taupe
+    private static final Color ACCENT_LIGHT = new Color(242, 240, 236);         // Light taupe tint
     
     // Status colors - muted and sophisticated
-    private static final Color SUCCESS = new Color(111, 143, 114);              // Sage green
-    private static final Color SUCCESS_LIGHT = new Color(235, 243, 236);        // Light sage tint
-    private static final Color WARNING = new Color(191, 155, 94);               // Warm gold
-    private static final Color WARNING_LIGHT = new Color(251, 245, 233);        // Light gold tint
-    private static final Color DANGER = new Color(178, 106, 100);               // Dusty rose/terracotta
-    private static final Color DANGER_LIGHT = new Color(250, 241, 240);         // Light rose tint
+    private static final Color SUCCESS = new Color(92, 124, 96);                // Muted sage
+    private static final Color SUCCESS_LIGHT = new Color(240, 246, 240);        // Light sage tint
+    private static final Color WARNING = new Color(168, 138, 84);               // Muted gold
+    private static final Color WARNING_LIGHT = new Color(252, 248, 240);        // Light gold tint
+    private static final Color DANGER = new Color(158, 92, 88);                 // Muted terracotta
+    private static final Color DANGER_LIGHT = new Color(252, 244, 244);         // Light rose tint
     
     // Card colors
     private static final Color CARD_BG = Color.WHITE;
-    private static final Color CARD_BORDER = new Color(235, 231, 225);
+    private static final Color CARD_BORDER = new Color(238, 238, 236);
 
     // ========== ELEGANT FONTS ==========
-    // Using Georgia for headings (elegant serif) and system fonts for body
-    private static final Font FONT_LOGO = new Font("Georgia", Font.BOLD, 26);
-    private static final Font FONT_TITLE = new Font("Georgia", Font.PLAIN, 32);
-    private static final Font FONT_HEADING = new Font("Georgia", Font.BOLD, 15);
+    // Using clean typography hierarchy
+    private static final Font FONT_LOGO = new Font("Georgia", Font.BOLD, 24);
+    private static final Font FONT_TITLE = new Font("Georgia", Font.PLAIN, 28);
+    private static final Font FONT_HEADING = new Font("SansSerif", Font.BOLD, 14);
     private static final Font FONT_SUBHEADING = new Font("SansSerif", Font.BOLD, 12);
-    private static final Font FONT_BODY = new Font("SansSerif", Font.PLAIN, 14);
+    private static final Font FONT_BODY = new Font("SansSerif", Font.PLAIN, 13);
     private static final Font FONT_SMALL = new Font("SansSerif", Font.PLAIN, 12);
     private static final Font FONT_TINY = new Font("SansSerif", Font.PLAIN, 11);
     private static final Font FONT_MICRO = new Font("SansSerif", Font.PLAIN, 10);
@@ -107,7 +108,7 @@ public class MainPanel extends JPanel {
     private void setupSidebar() {
         JPanel sidebar = new JPanel(new BorderLayout());
         sidebar.setBackground(SIDEBAR_BG);
-        sidebar.setPreferredSize(new Dimension(270, 0));
+        sidebar.setPreferredSize(new Dimension(260, 0));
         sidebar.setBorder(new MatteBorder(0, 0, 0, 1, BORDER_COLOR));
 
         // Logo/Brand header
@@ -178,14 +179,14 @@ public class MainPanel extends JPanel {
         header.setBackground(SIDEBAR_BG);
         header.setBorder(new CompoundBorder(
             new MatteBorder(0, 0, 1, 0, BORDER_COLOR),
-            new EmptyBorder(24, 20, 20, 20)
+            new EmptyBorder(22, 18, 18, 18)
         ));
 
         // Logo with icon
         JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         logoPanel.setBackground(SIDEBAR_BG);
         
-        // Custom logo icon (elegant K monogram)
+        // Custom logo icon (elegant K monogram in a circle)
         JPanel logoIcon = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -194,17 +195,17 @@ public class MainPanel extends JPanel {
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
                 
-                // Draw elegant circle background
-                g2.setColor(TEXT_PRIMARY);
-                g2.fill(new Ellipse2D.Double(0, 0, 36, 36));
+                // Draw elegant circle background - deep charcoal
+                g2.setColor(new Color(42, 42, 42));
+                g2.fill(new Ellipse2D.Double(0, 0, 34, 34));
                 
                 // Draw the K letter
-                g2.setColor(Color.WHITE);
-                g2.setFont(new Font("Georgia", Font.BOLD, 18));
+                g2.setColor(new Color(255, 255, 255));
+                g2.setFont(new Font("Georgia", Font.BOLD, 16));
                 FontMetrics fm = g2.getFontMetrics();
                 String letter = "K";
-                int x = (36 - fm.stringWidth(letter)) / 2;
-                int y = ((36 - fm.getHeight()) / 2) + fm.getAscent();
+                int x = (34 - fm.stringWidth(letter)) / 2;
+                int y = ((34 - fm.getHeight()) / 2) + fm.getAscent();
                 g2.drawString(letter, x, y);
                 
                 g2.dispose();
@@ -212,7 +213,7 @@ public class MainPanel extends JPanel {
             
             @Override
             public Dimension getPreferredSize() {
-                return new Dimension(36, 36);
+                return new Dimension(34, 34);
             }
         };
         logoIcon.setOpaque(false);
@@ -229,7 +230,7 @@ public class MainPanel extends JPanel {
         logo.setForeground(TEXT_PRIMARY);
         textPanel.add(logo);
 
-        JLabel tagline = new JLabel("Smart Task System");
+        JLabel tagline = new JLabel("Task & Scheduling");
         tagline.setFont(FONT_MICRO);
         tagline.setForeground(TEXT_MUTED);
         tagline.setBorder(new EmptyBorder(2, 0, 0, 0));
@@ -248,7 +249,6 @@ public class MainPanel extends JPanel {
         label.setBorder(new EmptyBorder(12, 10, 8, 0));
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        // Add letter spacing effect
         parent.add(label);
     }
 
@@ -326,10 +326,10 @@ public class MainPanel extends JPanel {
         panel.setBackground(SIDEBAR_BG);
         panel.setBorder(new CompoundBorder(
             new MatteBorder(1, 0, 0, 0, BORDER_COLOR),
-            new EmptyBorder(16, 18, 16, 18)
+            new EmptyBorder(14, 16, 14, 16)
         ));
 
-        JButton newPageBtn = createStyledButton("+ New Page", ACCENT, Color.WHITE);
+        JButton newPageBtn = createStyledButton("+ New Page", new Color(52, 52, 52), Color.WHITE);
         newPageBtn.setFont(FONT_BODY);
         newPageBtn.addActionListener(e -> createNewPage());
         
@@ -351,7 +351,7 @@ public class MainPanel extends JPanel {
         JPanel welcome = new JPanel();
         welcome.setLayout(new BoxLayout(welcome, BoxLayout.Y_AXIS));
         welcome.setBackground(BACKGROUND);
-        welcome.setBorder(new EmptyBorder(120, 80, 80, 80));
+        welcome.setBorder(new EmptyBorder(100, 70, 70, 70));
 
         JLabel title = new JLabel("Welcome to Kairo");
         title.setFont(FONT_TITLE);
@@ -359,14 +359,14 @@ public class MainPanel extends JPanel {
         title.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         JLabel subtitle = new JLabel("Your elegant task and scheduling companion");
-        subtitle.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        subtitle.setFont(new Font("SansSerif", Font.PLAIN, 15));
         subtitle.setForeground(TEXT_SECONDARY);
         subtitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Decorative line
         JPanel line = new JPanel();
-        line.setBackground(ACCENT);
-        line.setMaximumSize(new Dimension(60, 3));
+        line.setBackground(new Color(52, 52, 52));
+        line.setMaximumSize(new Dimension(50, 2));
         line.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         JLabel hint = new JLabel("Create a new page to begin organizing your tasks and notes.");
@@ -381,9 +381,9 @@ public class MainPanel extends JPanel {
         welcome.add(line);
         welcome.add(Box.createVerticalStrut(24));
         welcome.add(hint);
-        welcome.add(Box.createVerticalStrut(32));
+        welcome.add(Box.createVerticalStrut(28));
 
-        JButton createBtn = createStyledButton("Create your first page", ACCENT, Color.WHITE);
+        JButton createBtn = createStyledButton("Create your first page", new Color(52, 52, 52), Color.WHITE);
         createBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
         createBtn.addActionListener(e -> createNewPage());
         welcome.add(createBtn);
@@ -404,7 +404,7 @@ public class MainPanel extends JPanel {
         
         JPanel mainContent = new JPanel(new BorderLayout());
         mainContent.setBackground(BACKGROUND);
-        mainContent.setBorder(new EmptyBorder(40, 60, 40, 60));
+        mainContent.setBorder(new EmptyBorder(36, 56, 36, 56));
 
         // Header with page name and actions
         JPanel header = createPageHeader(page);
@@ -419,7 +419,7 @@ public class MainPanel extends JPanel {
         JPanel tasksSection = createTasksSection(page);
         sections.add(tasksSection);
         
-        sections.add(Box.createVerticalStrut(40));
+        sections.add(Box.createVerticalStrut(36));
 
         // Notes section
         JPanel notesSection = createNotesSection(page);
@@ -442,7 +442,7 @@ public class MainPanel extends JPanel {
     private JPanel createPageHeader(Page page) {
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(BACKGROUND);
-        header.setBorder(new EmptyBorder(0, 0, 32, 0));
+        header.setBorder(new EmptyBorder(0, 0, 28, 0));
 
         // Page title (editable on click)
         JLabel titleLabel = new JLabel(page.getName());
@@ -463,7 +463,7 @@ public class MainPanel extends JPanel {
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                titleLabel.setForeground(ACCENT);
+                titleLabel.setForeground(TEXT_SECONDARY);
             }
             @Override
             public void mouseExited(MouseEvent e) {
@@ -511,19 +511,19 @@ public class MainPanel extends JPanel {
         // Section header
         JPanel sectionHeader = new JPanel(new BorderLayout());
         sectionHeader.setBackground(BACKGROUND);
-        sectionHeader.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+        sectionHeader.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 
         JLabel titleLabel = new JLabel("Tasks");
         titleLabel.setFont(FONT_HEADING);
         titleLabel.setForeground(TEXT_PRIMARY);
 
-        JButton addBtn = createTextButton("+ Add Task", ACCENT);
+        JButton addBtn = createTextButton("+ Add Task", new Color(52, 52, 52));
         addBtn.addActionListener(e -> showAddTaskDialog(page));
 
         sectionHeader.add(titleLabel, BorderLayout.WEST);
         sectionHeader.add(addBtn, BorderLayout.EAST);
         section.add(sectionHeader);
-        section.add(Box.createVerticalStrut(16));
+        section.add(Box.createVerticalStrut(14));
 
         // Task cards
         List<Task> tasks = page.getTasks();
@@ -537,7 +537,7 @@ public class MainPanel extends JPanel {
                 .forEach(task -> {
                     JPanel card = createTaskCard(task, page, true);
                     section.add(card);
-                    section.add(Box.createVerticalStrut(10));
+                    section.add(Box.createVerticalStrut(8));
                 });
         }
 
@@ -549,10 +549,10 @@ public class MainPanel extends JPanel {
         boolean isOverdue = task.isOverdue(today);
         boolean isCompleted = task.isCompleted();
 
-        JPanel card = new RoundedPanel(10);
-        card.setLayout(new BorderLayout(14, 0));
-        card.setBorder(new EmptyBorder(18, 18, 18, 18));
-        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 85));
+        JPanel card = new RoundedPanel(8);
+        card.setLayout(new BorderLayout(12, 0));
+        card.setBorder(new EmptyBorder(16, 16, 16, 16));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
         
         if (isCompleted) {
             card.setBackground(SUCCESS_LIGHT);
@@ -563,7 +563,7 @@ public class MainPanel extends JPanel {
         }
 
         // Left side: checkbox and title
-        JPanel leftPanel = new JPanel(new BorderLayout(14, 0));
+        JPanel leftPanel = new JPanel(new BorderLayout(12, 0));
         leftPanel.setOpaque(false);
 
         // Custom styled checkbox
@@ -594,15 +594,15 @@ public class MainPanel extends JPanel {
         if (task.getDueDate() != null) {
             String dateStr = task.getDueDate().format(DateTimeFormatter.ofPattern("MMM d, yyyy"));
             if (isOverdue) {
-                infoText.append("<font color='#B26A64'>").append(dateStr).append(" (Overdue)</font>");
+                infoText.append("<font color='#9E5C58'>").append(dateStr).append(" (Overdue)</font>");
             } else if (task.getDueDate().equals(today)) {
-                infoText.append("<font color='#BF9B5E'>").append(dateStr).append(" (Today)</font>");
+                infoText.append("<font color='#A88A54'>").append(dateStr).append(" (Today)</font>");
             } else {
                 infoText.append(dateStr);
             }
         }
         if (task.getPriority() != null) {
-            if (infoText.length() > 0) infoText.append("  <font color='#B4AD9E'>\u2022</font>  ");
+            if (infoText.length() > 0) infoText.append("  <font color='#AFAFAF'>\u2022</font>  ");
             Color priorityColor = getPriorityColor(task.getPriority());
             infoText.append("<font color='").append(String.format("#%02x%02x%02x", 
                 priorityColor.getRed(), priorityColor.getGreen(), priorityColor.getBlue()))
@@ -622,7 +622,7 @@ public class MainPanel extends JPanel {
 
         // Right side: status badge and actions
         if (showActions) {
-            JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+            JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
             rightPanel.setOpaque(false);
 
             // Status badge
@@ -704,19 +704,19 @@ public class MainPanel extends JPanel {
         // Section header
         JPanel sectionHeader = new JPanel(new BorderLayout());
         sectionHeader.setBackground(BACKGROUND);
-        sectionHeader.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+        sectionHeader.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 
         JLabel titleLabel = new JLabel("Notes");
         titleLabel.setFont(FONT_HEADING);
         titleLabel.setForeground(TEXT_PRIMARY);
 
-        JButton addBtn = createTextButton("+ Add Note", ACCENT);
+        JButton addBtn = createTextButton("+ Add Note", new Color(52, 52, 52));
         addBtn.addActionListener(e -> showAddNoteDialog(page));
 
         sectionHeader.add(titleLabel, BorderLayout.WEST);
         sectionHeader.add(addBtn, BorderLayout.EAST);
         section.add(sectionHeader);
-        section.add(Box.createVerticalStrut(16));
+        section.add(Box.createVerticalStrut(14));
 
         // Note cards
         List<Note> notes = page.getNotes();
@@ -727,7 +727,7 @@ public class MainPanel extends JPanel {
             for (Note note : notes) {
                 JPanel card = createNoteCard(note, page);
                 section.add(card);
-                section.add(Box.createVerticalStrut(10));
+                section.add(Box.createVerticalStrut(8));
             }
         }
 
@@ -735,11 +735,11 @@ public class MainPanel extends JPanel {
     }
 
     private JPanel createNoteCard(Note note, Page page) {
-        JPanel card = new RoundedPanel(10);
-        card.setLayout(new BorderLayout(14, 0));
-        card.setBorder(new EmptyBorder(18, 18, 18, 18));
+        JPanel card = new RoundedPanel(8);
+        card.setLayout(new BorderLayout(12, 0));
+        card.setBorder(new EmptyBorder(16, 16, 16, 16));
         card.setBackground(CARD_BG);
-        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
 
         // Note content
         JTextArea contentArea = new JTextArea(note.getContent());
@@ -755,8 +755,10 @@ public class MainPanel extends JPanel {
         leftPanel.setOpaque(false);
         leftPanel.add(contentArea, BorderLayout.CENTER);
 
-        // Created date
-        JLabel dateLabel = new JLabel(note.getCreatedAt().format(DateTimeFormatter.ofPattern("MMM d, yyyy")));
+        // Created date - Convert Instant to LocalDate for formatting
+        String dateStr = DateTimeFormatter.ofPattern("MMM d, yyyy")
+            .format(note.getCreatedAt().atZone(ZoneId.systemDefault()).toLocalDate());
+        JLabel dateLabel = new JLabel(dateStr);
         dateLabel.setFont(FONT_TINY);
         dateLabel.setForeground(TEXT_MUTED);
         dateLabel.setBorder(new EmptyBorder(8, 0, 0, 0));
@@ -786,14 +788,14 @@ public class MainPanel extends JPanel {
     }
     
     private JPanel createEmptyState(String title, String subtitle) {
-        JPanel panel = new RoundedPanel(10);
+        JPanel panel = new RoundedPanel(8);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBackground(new Color(252, 251, 249));
+        panel.setBackground(new Color(250, 250, 249));
         panel.setBorder(new CompoundBorder(
             new LineBorder(BORDER_COLOR, 1, true),
-            new EmptyBorder(30, 30, 30, 30)
+            new EmptyBorder(28, 28, 28, 28)
         ));
-        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
         
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(FONT_BODY);
@@ -821,7 +823,7 @@ public class MainPanel extends JPanel {
         
         JPanel mainContent = new JPanel(new BorderLayout());
         mainContent.setBackground(BACKGROUND);
-        mainContent.setBorder(new EmptyBorder(40, 60, 40, 60));
+        mainContent.setBorder(new EmptyBorder(36, 56, 36, 56));
 
         String title;
         String subtitle;
@@ -852,7 +854,7 @@ public class MainPanel extends JPanel {
         JPanel header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
         header.setBackground(BACKGROUND);
-        header.setBorder(new EmptyBorder(0, 0, 32, 0));
+        header.setBorder(new EmptyBorder(0, 0, 28, 0));
 
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(FONT_TITLE);
@@ -877,7 +879,7 @@ public class MainPanel extends JPanel {
 
         if (tasks.isEmpty()) {
             JPanel emptyState = createEmptyState("No tasks to display", "All caught up!");
-            emptyState.setBorder(new EmptyBorder(40, 0, 0, 0));
+            emptyState.setBorder(new EmptyBorder(36, 0, 0, 0));
             taskList.add(emptyState);
         } else {
             for (Task task : tasks) {
@@ -890,12 +892,12 @@ public class MainPanel extends JPanel {
                     JLabel pageLabel = new JLabel("in " + taskPage.getName());
                     pageLabel.setFont(FONT_TINY);
                     pageLabel.setForeground(TEXT_MUTED);
-                    pageLabel.setBorder(new EmptyBorder(0, 52, 6, 0));
+                    pageLabel.setBorder(new EmptyBorder(0, 48, 6, 0));
                     taskList.add(pageLabel);
                 }
                 
                 taskList.add(card);
-                taskList.add(Box.createVerticalStrut(14));
+                taskList.add(Box.createVerticalStrut(12));
             }
         }
 
@@ -1063,15 +1065,25 @@ public class MainPanel extends JPanel {
     }
 
     private void showAddNoteDialog(Page page) {
+        JPanel panel = new JPanel(new BorderLayout(0, 10));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panel.setBackground(Color.WHITE);
+        panel.setPreferredSize(new Dimension(420, 180));
+        
+        JLabel label = new JLabel("Enter your note:");
+        label.setFont(FONT_SMALL);
+        label.setForeground(TEXT_SECONDARY);
+        panel.add(label, BorderLayout.NORTH);
+        
         JTextArea textArea = createStyledTextArea("");
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setBorder(new CompoundBorder(
             new LineBorder(BORDER_COLOR, 1, true),
-            new EmptyBorder(8, 8, 8, 8)
+            new EmptyBorder(10, 10, 10, 10)
         ));
-        scrollPane.setPreferredSize(new Dimension(400, 150));
+        panel.add(scrollPane, BorderLayout.CENTER);
 
-        int result = JOptionPane.showConfirmDialog(this, scrollPane, "Add Note", 
+        int result = JOptionPane.showConfirmDialog(this, panel, "Add Note", 
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
@@ -1085,15 +1097,25 @@ public class MainPanel extends JPanel {
     }
 
     private void showEditNoteDialog(Note note, Page page) {
+        JPanel panel = new JPanel(new BorderLayout(0, 10));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panel.setBackground(Color.WHITE);
+        panel.setPreferredSize(new Dimension(420, 180));
+        
+        JLabel label = new JLabel("Edit your note:");
+        label.setFont(FONT_SMALL);
+        label.setForeground(TEXT_SECONDARY);
+        panel.add(label, BorderLayout.NORTH);
+        
         JTextArea textArea = createStyledTextArea(note.getContent());
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setBorder(new CompoundBorder(
             new LineBorder(BORDER_COLOR, 1, true),
-            new EmptyBorder(8, 8, 8, 8)
+            new EmptyBorder(10, 10, 10, 10)
         ));
-        scrollPane.setPreferredSize(new Dimension(400, 150));
+        panel.add(scrollPane, BorderLayout.CENTER);
 
-        int result = JOptionPane.showConfirmDialog(this, scrollPane, "Edit Note", 
+        int result = JOptionPane.showConfirmDialog(this, panel, "Edit Note", 
             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
@@ -1207,7 +1229,7 @@ public class MainPanel extends JPanel {
                 LocalDate date = ym.atDay(day);
                 JButton dayBtn = new JButton(String.valueOf(day));
                 dayBtn.setFont(FONT_SMALL);
-                dayBtn.setForeground(date.equals(today) ? ACCENT : TEXT_PRIMARY);
+                dayBtn.setForeground(date.equals(today) ? new Color(52, 52, 52) : TEXT_PRIMARY);
                 dayBtn.setBackground(Color.WHITE);
                 dayBtn.setBorder(new EmptyBorder(6, 6, 6, 6));
                 dayBtn.setFocusPainted(false);
@@ -1215,7 +1237,7 @@ public class MainPanel extends JPanel {
                 
                 if (date.equals(today)) {
                     dayBtn.setBorder(new CompoundBorder(
-                        new LineBorder(ACCENT, 1, true),
+                        new LineBorder(new Color(52, 52, 52), 1, true),
                         new EmptyBorder(5, 5, 5, 5)
                     ));
                 }
@@ -1302,10 +1324,10 @@ public class MainPanel extends JPanel {
     private JButton createQuickDateButton(String label, LocalDate date, JTextField dateField, JPopupMenu popup) {
         JButton btn = new JButton(label);
         btn.setFont(FONT_TINY);
-        btn.setForeground(ACCENT);
+        btn.setForeground(new Color(52, 52, 52));
         btn.setBackground(Color.WHITE);
         btn.setBorder(new CompoundBorder(
-            new LineBorder(ACCENT_LIGHT, 1, true),
+            new LineBorder(BORDER_COLOR, 1, true),
             new EmptyBorder(4, 10, 4, 10)
         ));
         btn.setFocusPainted(false);
@@ -1350,7 +1372,7 @@ public class MainPanel extends JPanel {
             new LineBorder(BORDER_COLOR, 1, true),
             new EmptyBorder(10, 12, 10, 12)
         ));
-        field.setCaretColor(ACCENT);
+        field.setCaretColor(new Color(52, 52, 52));
         return field;
     }
     
@@ -1361,7 +1383,7 @@ public class MainPanel extends JPanel {
         area.setBackground(Color.WHITE);
         area.setLineWrap(true);
         area.setWrapStyleWord(true);
-        area.setCaretColor(ACCENT);
+        area.setCaretColor(new Color(52, 52, 52));
         area.setBorder(null);
         return area;
     }
@@ -1382,7 +1404,7 @@ public class MainPanel extends JPanel {
         JPanel fieldPanel = new JPanel(new BorderLayout(0, 6));
         fieldPanel.setOpaque(false);
         fieldPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 70));
-        fieldPanel.setBorder(new EmptyBorder(0, 0, 14, 0));
+        fieldPanel.setBorder(new EmptyBorder(0, 0, 12, 0));
         fieldPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         JLabel fieldLabel = new JLabel(label + (required ? " *" : ""));
@@ -1448,7 +1470,7 @@ public class MainPanel extends JPanel {
         JLabel badge = new JLabel(status.toString().replace("_", " "));
         badge.setFont(FONT_TINY);
         badge.setOpaque(true);
-        badge.setBorder(new EmptyBorder(5, 10, 5, 10));
+        badge.setBorder(new EmptyBorder(4, 8, 4, 8));
         
         switch (status) {
             case COMPLETED:
@@ -1460,11 +1482,11 @@ public class MainPanel extends JPanel {
                 badge.setForeground(ACCENT);
                 break;
             case NOT_STARTED:
-                badge.setBackground(new Color(248, 247, 245));
+                badge.setBackground(new Color(248, 248, 247));
                 badge.setForeground(TEXT_TERTIARY);
                 break;
             case CANCELLED:
-                badge.setBackground(new Color(248, 247, 245));
+                badge.setBackground(new Color(248, 248, 247));
                 badge.setForeground(TEXT_MUTED);
                 break;
         }
@@ -1480,7 +1502,7 @@ public class MainPanel extends JPanel {
         button.setFocusPainted(false);
         button.setBorderPainted(false);
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.setBorder(new EmptyBorder(12, 24, 12, 24));
+        button.setBorder(new EmptyBorder(11, 22, 11, 22));
         
         button.addMouseListener(new MouseAdapter() {
             @Override
@@ -1556,10 +1578,10 @@ public class MainPanel extends JPanel {
             
             Page page = (Page) value;
             
-            JPanel panel = new RoundedPanel(8);
+            JPanel panel = new RoundedPanel(6);
             panel.setLayout(new BorderLayout());
             panel.setBackground(isSelected ? SIDEBAR_SELECTED : SIDEBAR_BG);
-            panel.setBorder(new EmptyBorder(10, 14, 10, 14));
+            panel.setBorder(new EmptyBorder(10, 12, 10, 12));
             
             // Page icon
             JLabel icon = new JLabel("\u25A1");
@@ -1613,7 +1635,7 @@ public class MainPanel extends JPanel {
         protected void paintBorder(Graphics g) {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setColor(new Color(235, 231, 225));
+            g2.setColor(new Color(238, 238, 236));
             g2.draw(new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, radius, radius));
             g2.dispose();
         }
